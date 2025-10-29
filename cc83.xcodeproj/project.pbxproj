@@ -80,8 +80,8 @@
 		78E525352EB184F30032136B = {
 			isa = PBXGroup;
 			children = (
+				78E525AA2EB185AA0032136B /* Assets.xcassets */,
 				78E525402EB184F30032136B /* NebulaSprint */,
-				78E525AB2EB185AB0032136B /* cc83 */,
 				78E5254E2EB184F40032136B /* cc83Tests */,
 				78E525582EB184F40032136B /* cc83UITests */,
 				78E5253F2EB184F30032136B /* Products */,
@@ -96,14 +96,6 @@
 				78E525552EB184F40032136B /* cc83UITests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		78E525AB2EB185AB0032136B /* cc83 */ = {
-			isa = PBXGroup;
-			children = (
-				78E525AA2EB185AA0032136B /* Assets.xcassets */,
-			);
-			path = cc83;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
