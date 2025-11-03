@@ -37,54 +37,56 @@ struct GameView: View {
     
     // MARK: - Menu View
     private var menuView: some View {
-        VStack(spacing: 30) {
-            Spacer()
-            
-            // Title
-            VStack(spacing: 10) {
-                Image(systemName: "sparkles")
-                    .font(.system(size: 60))
-                    .foregroundColor(viewModel.currentTheme.accentColor)
+        ScrollView {
+            VStack(spacing: 30) {
+                Spacer(minLength: 40)
                 
-                Text("NebulaSprint")
-                    .font(.system(size: 48, weight: .bold, design: .rounded))
-                    .foregroundColor(.white)
-            }
-            
-            // Stats preview
-            VStack(spacing: 15) {
-                statRow(title: "High Score", value: "\(viewModel.scoreService.currentSession.highScore)")
-                statRow(title: "Games Played", value: "\(viewModel.scoreService.currentSession.gamesPlayed)")
-                statRow(title: "Cosmic Currency", value: "\(viewModel.scoreService.currentSession.cosmicCurrency)")
-            }
-            .padding()
-            .neumorphicCard(backgroundColor: viewModel.currentTheme.backgroundColor.opacity(0.5))
-            .padding(.horizontal, 40)
-            
-            Spacer()
-            
-            // Start Button
-            Button(action: {
-                viewModel.startGame()
-            }) {
-                HStack {
-                    Image(systemName: "play.fill")
-                    Text("Start Game")
-                        .font(.system(size: 24, weight: .semibold, design: .rounded))
+                // Title
+                VStack(spacing: 10) {
+                    Image(systemName: "sparkles")
+                        .font(.system(size: 60))
+                        .foregroundColor(viewModel.currentTheme.accentColor)
+                    
+                    Text("NebulaSprint")
+                        .font(.system(size: 48, weight: .bold, design: .rounded))
+                        .foregroundColor(.white)
                 }
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 20)
+                
+                // Stats preview
+                VStack(spacing: 15) {
+                    statRow(title: "High Score", value: "\(viewModel.scoreService.currentSession.highScore)")
+                    statRow(title: "Games Played", value: "\(viewModel.scoreService.currentSession.gamesPlayed)")
+                    statRow(title: "Cosmic Currency", value: "\(viewModel.scoreService.currentSession.cosmicCurrency)")
+                }
+                .padding()
+                .neumorphicCard(backgroundColor: viewModel.currentTheme.backgroundColor.opacity(0.5))
+                .padding(.horizontal, 40)
+                
+                Spacer(minLength: 20)
+                
+                // Start Button
+                Button(action: {
+                    viewModel.startGame()
+                }) {
+                    HStack {
+                        Image(systemName: "play.fill")
+                        Text("Start Game")
+                            .font(.system(size: 24, weight: .semibold, design: .rounded))
+                    }
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 20)
+                }
+                .buttonStyle(NeumorphicButtonStyle(backgroundColor: viewModel.currentTheme.buttonColor))
+                .padding(.horizontal, 40)
+                
+                // Current Difficulty
+                Text("Difficulty: \(viewModel.difficulty.rawValue.capitalized)")
+                    .font(.system(size: 16, weight: .medium, design: .rounded))
+                    .foregroundColor(.white.opacity(0.7))
+                
+                Spacer(minLength: 40)
             }
-            .buttonStyle(NeumorphicButtonStyle(backgroundColor: viewModel.currentTheme.buttonColor))
-            .padding(.horizontal, 40)
-            
-            // Current Difficulty
-            Text("Difficulty: \(viewModel.difficulty.rawValue.capitalized)")
-                .font(.system(size: 16, weight: .medium, design: .rounded))
-                .foregroundColor(.white.opacity(0.7))
-            
-            Spacer()
         }
     }
     
@@ -185,74 +187,76 @@ struct GameView: View {
     
     // MARK: - Game Over View
     private var gameOverView: some View {
-        VStack(spacing: 30) {
-            Spacer()
-            
-            Text("Mission Complete!")
-                .font(.system(size: 42, weight: .bold, design: .rounded))
-                .foregroundColor(.white)
-            
-            Image(systemName: "star.circle.fill")
-                .font(.system(size: 80))
-                .foregroundColor(viewModel.currentTheme.accentColor)
-            
-            VStack(spacing: 20) {
-                resultRow(title: "Final Score", value: "\(viewModel.score)")
-                resultRow(title: "High Score", value: "\(viewModel.scoreService.currentSession.highScore)")
-                resultRow(title: "Distance", value: String(format: "%.0f", viewModel.distance))
+        ScrollView {
+            VStack(spacing: 30) {
+                Spacer(minLength: 40)
                 
-                if viewModel.score == viewModel.scoreService.currentSession.highScore && viewModel.score > 0 {
-                    Text("🎉 New High Score! 🎉")
-                        .font(.system(size: 20, weight: .bold, design: .rounded))
-                        .foregroundColor(viewModel.currentTheme.accentColor)
+                Text("Mission Complete!")
+                    .font(.system(size: 42, weight: .bold, design: .rounded))
+                    .foregroundColor(.white)
+                
+                Image(systemName: "star.circle.fill")
+                    .font(.system(size: 80))
+                    .foregroundColor(viewModel.currentTheme.accentColor)
+                
+                VStack(spacing: 20) {
+                    resultRow(title: "Final Score", value: "\(viewModel.score)")
+                    resultRow(title: "High Score", value: "\(viewModel.scoreService.currentSession.highScore)")
+                    resultRow(title: "Distance", value: String(format: "%.0f", viewModel.distance))
+                    
+                    if viewModel.score == viewModel.scoreService.currentSession.highScore && viewModel.score > 0 {
+                        Text("🎉 New High Score! 🎉")
+                            .font(.system(size: 20, weight: .bold, design: .rounded))
+                            .foregroundColor(viewModel.currentTheme.accentColor)
+                    }
                 }
-            }
-            .padding()
-            .neumorphicCard(backgroundColor: viewModel.currentTheme.backgroundColor.opacity(0.5))
-            .padding(.horizontal, 40)
-            
-            // Performance insight
-            Text(viewModel.scoreService.getPerformanceInsight())
-                .font(.system(size: 16, weight: .medium, design: .rounded))
-                .foregroundColor(.white.opacity(0.8))
-                .multilineTextAlignment(.center)
+                .padding()
+                .neumorphicCard(backgroundColor: viewModel.currentTheme.backgroundColor.opacity(0.5))
                 .padding(.horizontal, 40)
-            
-            Spacer()
-            
-            // Buttons
-            HStack(spacing: 20) {
-                Button(action: {
-                    viewModel.returnToMenu()
-                }) {
-                    HStack {
-                        Image(systemName: "house.fill")
-                        Text("Menu")
-                            .font(.system(size: 18, weight: .semibold, design: .rounded))
-                    }
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(NeumorphicButtonStyle(backgroundColor: viewModel.currentTheme.backgroundColor.opacity(0.7)))
                 
-                Button(action: {
-                    viewModel.startGame()
-                }) {
-                    HStack {
-                        Image(systemName: "arrow.clockwise")
-                        Text("Play Again")
-                            .font(.system(size: 18, weight: .semibold, design: .rounded))
+                // Performance insight
+                Text(viewModel.scoreService.getPerformanceInsight())
+                    .font(.system(size: 16, weight: .medium, design: .rounded))
+                    .foregroundColor(.white.opacity(0.8))
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 40)
+                
+                Spacer(minLength: 20)
+                
+                // Buttons
+                HStack(spacing: 20) {
+                    Button(action: {
+                        viewModel.returnToMenu()
+                    }) {
+                        HStack {
+                            Image(systemName: "house.fill")
+                            Text("Menu")
+                                .font(.system(size: 18, weight: .semibold, design: .rounded))
+                        }
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
                     }
-                    .foregroundColor(.white)
-                    .padding()
-                    .frame(maxWidth: .infinity)
+                    .buttonStyle(NeumorphicButtonStyle(backgroundColor: viewModel.currentTheme.backgroundColor.opacity(0.7)))
+                    
+                    Button(action: {
+                        viewModel.startGame()
+                    }) {
+                        HStack {
+                            Image(systemName: "arrow.clockwise")
+                            Text("Play Again")
+                                .font(.system(size: 18, weight: .semibold, design: .rounded))
+                        }
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(NeumorphicButtonStyle(backgroundColor: viewModel.currentTheme.buttonColor))
                 }
-                .buttonStyle(NeumorphicButtonStyle(backgroundColor: viewModel.currentTheme.buttonColor))
+                .padding(.horizontal, 40)
+                
+                Spacer(minLength: 40)
             }
-            .padding(.horizontal, 40)
-            
-            Spacer()
         }
     }
     
@@ -298,55 +302,61 @@ struct GameView: View {
             Color.black.opacity(0.8)
                 .ignoresSafeArea()
             
-            VStack(spacing: 25) {
-                Image(systemName: viewModel.currentLifestyleChallenge?.category.icon ?? "star.fill")
-                    .font(.system(size: 60))
-                    .foregroundColor(viewModel.currentLifestyleChallenge?.category.color ?? .white)
-                
-                Text("Lifestyle Challenge!")
-                    .font(.system(size: 32, weight: .bold, design: .rounded))
-                    .foregroundColor(.white)
-                
-                VStack(spacing: 15) {
-                    Text(viewModel.currentLifestyleChallenge?.title ?? "")
-                        .font(.system(size: 24, weight: .semibold, design: .rounded))
-                        .foregroundColor(viewModel.currentTheme.accentColor)
+            ScrollView {
+                VStack(spacing: 25) {
+                    Spacer(minLength: 60)
                     
-                    Text(viewModel.currentLifestyleChallenge?.description ?? "")
-                        .font(.system(size: 18, weight: .regular, design: .rounded))
-                        .foregroundColor(.white.opacity(0.8))
-                        .multilineTextAlignment(.center)
+                    Image(systemName: viewModel.currentLifestyleChallenge?.category.icon ?? "star.fill")
+                        .font(.system(size: 60))
+                        .foregroundColor(viewModel.currentLifestyleChallenge?.category.color ?? .white)
                     
-                    Text("Reward: +\(viewModel.currentLifestyleChallenge?.reward ?? 0) points")
-                        .font(.system(size: 16, weight: .medium, design: .rounded))
-                        .foregroundColor(viewModel.currentTheme.buttonColor)
-                }
-                .padding()
-                .neumorphicCard(backgroundColor: viewModel.currentTheme.backgroundColor.opacity(0.5))
-                .padding(.horizontal, 40)
-                
-                VStack(spacing: 15) {
-                    Button(action: {
-                        viewModel.completeLifestyleChallenge()
-                    }) {
-                        HStack {
-                            Image(systemName: "checkmark.circle.fill")
-                            Text("Complete")
-                                .font(.system(size: 20, weight: .semibold, design: .rounded))
-                        }
+                    Text("Lifestyle Challenge!")
+                        .font(.system(size: 32, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
-                        .frame(maxWidth: 300)
-                        .padding(.vertical, 18)
-                    }
-                    .buttonStyle(NeumorphicButtonStyle(backgroundColor: viewModel.currentTheme.buttonColor))
                     
-                    Button(action: {
-                        viewModel.skipLifestyleChallenge()
-                    }) {
-                        Text("Skip")
+                    VStack(spacing: 15) {
+                        Text(viewModel.currentLifestyleChallenge?.title ?? "")
+                            .font(.system(size: 24, weight: .semibold, design: .rounded))
+                            .foregroundColor(viewModel.currentTheme.accentColor)
+                        
+                        Text(viewModel.currentLifestyleChallenge?.description ?? "")
+                            .font(.system(size: 18, weight: .regular, design: .rounded))
+                            .foregroundColor(.white.opacity(0.8))
+                            .multilineTextAlignment(.center)
+                        
+                        Text("Reward: +\(viewModel.currentLifestyleChallenge?.reward ?? 0) points")
                             .font(.system(size: 16, weight: .medium, design: .rounded))
-                            .foregroundColor(.white.opacity(0.6))
+                            .foregroundColor(viewModel.currentTheme.buttonColor)
                     }
+                    .padding()
+                    .neumorphicCard(backgroundColor: viewModel.currentTheme.backgroundColor.opacity(0.5))
+                    .padding(.horizontal, 40)
+                    
+                    VStack(spacing: 15) {
+                        Button(action: {
+                            viewModel.completeLifestyleChallenge()
+                        }) {
+                            HStack {
+                                Image(systemName: "checkmark.circle.fill")
+                                Text("Complete")
+                                    .font(.system(size: 20, weight: .semibold, design: .rounded))
+                            }
+                            .foregroundColor(.white)
+                            .frame(maxWidth: 300)
+                            .padding(.vertical, 18)
+                        }
+                        .buttonStyle(NeumorphicButtonStyle(backgroundColor: viewModel.currentTheme.buttonColor))
+                        
+                        Button(action: {
+                            viewModel.skipLifestyleChallenge()
+                        }) {
+                            Text("Skip")
+                                .font(.system(size: 16, weight: .medium, design: .rounded))
+                                .foregroundColor(.white.opacity(0.6))
+                        }
+                    }
+                    
+                    Spacer(minLength: 60)
                 }
             }
         }
