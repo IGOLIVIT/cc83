@@ -406,7 +406,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = NebulaSprint;
+				INFOPLIST_KEY_CFBundleDisplayName = "Melstroy game mobile";
 				INFOPLIST_KEY_NSUserNotificationsUsageDescription = "NebulaSprint would like to send you reminders to play and complete daily challenges.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -419,7 +419,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebulasprint.app;
 				PRODUCT_NAME = NebulaSprint;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -447,7 +447,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = NebulaSprint;
+				INFOPLIST_KEY_CFBundleDisplayName = "Melstroy game mobile";
 				INFOPLIST_KEY_NSUserNotificationsUsageDescription = "NebulaSprint would like to send you reminders to play and complete daily challenges.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -460,7 +460,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nebulasprint.app;
 				PRODUCT_NAME = NebulaSprint;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
